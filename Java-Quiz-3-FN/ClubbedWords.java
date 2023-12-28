@@ -1,31 +1,59 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-public class ClubbedWords {
-    public static List<String> findClubbedWords(String[] words) {
-        List<String> result = new ArrayList<>();
-        for (int i = 0; i < words.length; i++) {
-            for (int j = i + 1; j < words.length; j++) {
-                String combined = words[i] + words[j];
-                if (isClubbedWord(combined, Arrays.copyOfRange(words, 0, i)) ||
-                    isClubbedWord(combined, Arrays.copyOfRange(words, i + 1, words.length))) {
-                    result.add(combined);
-                }
-            }
-        }
-        return result;
-    }
-    private static boolean isClubbedWord(String word, String[] dictionary) {
-        for (String w : dictionary) {
-            if (word.contains(w)) {
-                word = word.replaceFirst(w, "");
-            }
-        }
-        return word.isEmpty();
-    }
-    public static void main(String[] args) {
-        String[] words = {"mat", "mate", "matbellmates", "bell", "bellmatesbell", "butterribbon", "butter", "ribbon"};
-        List<String> clubbedWords = findClubbedWords(words);
-        System.out.println("Clubbed Words: " + clubbedWords);
-    }
+import java.util.Scanner;
+
+public class Program_3_Hard {
+
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		System.out.print("Enter the N value of Array : ");
+		int n = s.nextInt();
+		int i;
+		System.out.print("Enter Strings\n");
+		String[] ar = new String[n];
+		for(i=0;i<n;i++)
+		{
+			System.out.print("String "+(i+1)+" : ");
+			ar[i] = s.next();
+		}
+		//int i,n=8;
+		//String[] ar = {"mat","mate","matbellmates","bell","bellmatesbell","butterribbon","butter","ribbon"};
+		System.out.print("\nThe Array : ");
+		for(i=0;i<n;i++)
+		{
+			System.out.print(" "+ar[i]+" ");
+		}
+		//Clubbing c = new Clubbing();
+		String[] club = new String[n];
+		int j,k=0,c=0;
+		//int[] unclub = new int[n];
+		//System.out.print("\n\n");
+		for(i=0;i<n;i++)
+		{
+			for(j=0;j<n;j++)
+			{
+				if((i!=j) && (ar[j].contains(ar[i])))
+				{
+					for(k=0;k<=c;k++)
+					{
+						if(club[k] == ar[j])
+						{
+							break;							
+						}
+						else if(k==c)
+						{
+							club[c] = ar[j];
+							c++;
+							break;
+						}
+					}
+				}
+			}
+		}
+		System.out.print("\n\nClubbed Elements : ");
+		for(i=0;i<c;i++)
+		{
+			System.out.print(" "+club[i]+" ");			
+		}
+		s.close();
+	}
 }
+
